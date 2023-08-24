@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PaymentLayout from './components/PaymentLayout';
-import BillList from './components/BillList';
+import PaymentHistory from './components/PaymentHistory';
 import CreateBillsButton from './components/CreateBillsButton';
 import SearchLayout from './components/SearchLayout';
 import NavigationBar from './components/NavigationBar';
@@ -67,22 +67,15 @@ const App: React.FC = () => {
       <NavigationBar />
       <h1>Billing App</h1>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PaymentLayout
-              onClientSelect={handleClientSelect}
-              selectedPendingBill={selectedPendingBill}
-              onBillPaid={handleBillPaid}
-            />
-          }
-        />
+        <Route path="/" element={<PaymentHistory onClientSelect={handleClientSelect} />} />
         <Route
           path="/bills"
           element={
-            <BillList
-              pendingBills={pendingBills}
-              onPendingBillSelect={handlePendingBillSelect}
+            <PaymentLayout
+              selectedClientId={selectedClientId} // Pass the selectedClientId prop
+              onClientSelect={handleClientSelect}
+              selectedPendingBill={selectedPendingBill}
+              onBillPaid={handleBillPaid}
             />
           }
         />

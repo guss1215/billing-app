@@ -11,7 +11,7 @@ const SearchBillsByCategory: React.FC<SearchBillsByCategoryProps> = ({ onSearchB
 
     const handleSearchBills = () => {
         onSearchBills(category); // Call the provided function with the category
-        setCategory(''); // Clear input field
+        //setCategory(''); // Clear input field
     };
 
     return (
