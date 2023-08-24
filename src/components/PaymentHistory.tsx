@@ -29,9 +29,9 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = ({ onClientSelect }) => {
     }
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     handleFetchPaymentHistory();
-  }, [paymentHistory]);
+  }, [paymentHistory]);*/
 
   // Call the onClientSelect callback when a client is selected
   const handleClientSelect = (selectedClientId: number) => {
