@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PendingBill } from '../types';
+import './SearchBillsByCategory.css';
 
 interface SearchBillsByCategoryProps {
     onSearchBills: (category: string) => void;
@@ -14,7 +15,7 @@ const SearchBillsByCategory: React.FC<SearchBillsByCategoryProps> = ({ onSearchB
     };
 
     return (
-        <div>
+        <div className='search-bills-by-category'>
             <h2>Search Bills by Category</h2>
             <div>
                 <label>Category: </label>

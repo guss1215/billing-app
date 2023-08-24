@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { makePayment } from '../redux/paymentHistorySlice';
 import { PendingBill } from '../types';
 import api from '../services/api';
+import './PaymentForm.css';
 
 interface PaymentFormProps {
     clientId: number | null;
@@ -41,7 +42,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ clientId, pendingBill, onBill
     };
 
     return (
-        <div>
+        <div className= 'payment-form'>
             <h3>Payment Form</h3>
             <p>Client ID: {clientId}</p>
             <p>Service Type: {pendingBill.category}</p>

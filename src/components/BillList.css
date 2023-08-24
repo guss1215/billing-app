@@ -1,0 +1,28 @@
+/* src/components/BillList.css */
+.bill-list {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bill-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.bill-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.bill-list li:hover {
+    background-color: #f8f8f8;
+}
+
+.selected {
+    background-color: #f8f8f8;
+}

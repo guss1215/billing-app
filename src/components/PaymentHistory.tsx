@@ -4,6 +4,7 @@ import { RootState } from '../redux/store';
 import { setClientId, setPaymentHistory } from '../redux/paymentHistorySlice';
 import { PaymentHistoryEntry } from '../types';
 import api from '../services/api';
+import './PaymentHistory.css';
 
 interface PaymentHistoryProps {
   onClientSelect: (clientId: number) => void; // Define the onClientSelect prop
@@ -40,7 +41,7 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = ({ onClientSelect }) => {
   };
 
   return (
-    <div>
+    <div className='payment-history'>
       <h2>Payment History</h2>
       <input
         type="input"

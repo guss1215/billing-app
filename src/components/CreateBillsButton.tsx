@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './CreateBillsButton.css';
 
 interface CreateBillsButtonProps {
     onCreateBills: (period: string, category: string) => void; // Update function signature
@@ -15,7 +16,7 @@ const CreateBillsButton: React.FC<CreateBillsButtonProps> = ({ onCreateBills }) 
     };
 
     return (
-        <div>
+        <div className='create-bills-button'>
             <h2>Create Bills</h2>
             <div>
                 <label>Period: </label>

@@ -1,0 +1,29 @@
+/* src/components/PaymentForm.css */
+.payment-form {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form p {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.payment-form button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.payment-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.payment-form button:hover {
+    background-color: #218838;
+}

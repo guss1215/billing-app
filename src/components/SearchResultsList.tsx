@@ -1,5 +1,6 @@
 import React from 'react';
 import { PendingBill } from '../types';
+import './SearchResultsList.css';
 
 interface SearchResultsListProps {
     searchResults: PendingBill[];
@@ -11,7 +12,7 @@ const SearchResultsList: React.FC<SearchResultsListProps> = ({
     onSearchResultSelect,
 }) => {
     return (
-        <div>
+        <div className='search-results'>
             <h2>Search Results</h2>
             <ul>
                 {searchResults.map((bill) => (

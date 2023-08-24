@@ -2,6 +2,7 @@ import React from 'react';
 import { PendingBill } from '../types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import './BillList.css';
 
 interface BillListProps {
     pendingBills: PendingBill[];
@@ -11,7 +12,7 @@ interface BillListProps {
 const BillList: React.FC<BillListProps> = ({ pendingBills, onPendingBillSelect }) => {
     const paymentHistory = useSelector((state: RootState) => state.paymentHistory.paymentHistory);
     return (
-        <div>
+        <div className='bill-list'>
             <h2>Bill List</h2>
             <ul>
                 {pendingBills.map((bill) => (

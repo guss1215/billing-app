@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import PaymentHistory from './components/PaymentHistory';
-import PaymentForm from './components/PaymentForm';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PaymentLayout from './components/PaymentLayout';
 import BillList from './components/BillList';
 import CreateBillsButton from './components/CreateBillsButton';
-import SearchBillsByCategory from './components/SearchBillsByCategory';
-import SearchResultsList from './components/SearchResultsList';
+import SearchLayout from './components/SearchLayout';
+import NavigationBar from './components/NavigationBar';
 import { PendingBill } from './types';
 import api from './services/api';
+import './App.css';
 
 const App: React.FC = () => {
   const [selectedClientId, setSelectedClientId] = useState<number | null>(null);
-  const [selectedPendingBill, setSelectedPendingBill] = useState<PendingBill | null>(null);
   const [pendingBills, setPendingBills] = useState<PendingBill[]>([]);
   const [searchResults, setSearchResults] = useState<PendingBill[]>([]);
-
+  const [selectedPendingBill, setSelectedPendingBill] = useState<PendingBill | null>(null);
 
   const handleClientSelect = (clientId: number) => {
     setSelectedClientId(clientId);
@@ -24,32 +24,27 @@ const App: React.FC = () => {
   };
 
   const handleBillPaid = (paidBill: PendingBill) => {
-    // Update the pendingBills list to remove the paid bill
     setPendingBills((prevBills) => prevBills.filter((bill) => bill.id !== paidBill.id));
-  };
-
-  const handleSearchBillsByCategory = async (category: string) => {
-    try {
-      const response = await api.get(`/search?category=${category}`);
-      setSearchResults(response.data); // Set the search results state
-    } catch (error) {
-      // Handle error
-      console.error('Error searching bills by category:', error);
-    }
   };
 
   const handleSearchResultSelect = (searchResult: PendingBill) => {
     setSelectedPendingBill(searchResult);
   };
 
+  const handleSearchBillsByCategory = async (category: string) => {
+    try {
+      const response = await api.get(`/search?category=${category}`);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error('Error searching bills by category:', error);
+    }
+  };
 
   const fetchPendingBills = async () => {
     try {
       const response = await api.get(`/pending?clientId=${selectedClientId}`);
-      console.log('Response from GetPendingBills:', response.data);
       setPendingBills(response.data);
     } catch (error) {
-      // Handle error
       console.error('Error fetching pending bills:', error);
     }
   };
@@ -61,7 +56,7 @@ const App: React.FC = () => {
   const handleCreateBills = async (period: string, category: string) => {
     try {
       await api.post('/bills', { period, category });
-      fetchPendingBills(); // Fetch updated list of pending bills
+      fetchPendingBills();
     } catch (error) {
       console.error('Error creating bills:', error);
     }
@@ -69,19 +64,44 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <NavigationBar />
       <h1>Billing App</h1>
-      <PaymentHistory onClientSelect={handleClientSelect} />
-      <BillList pendingBills={pendingBills} onPendingBillSelect={handlePendingBillSelect} />
-      <SearchBillsByCategory onSearchBills={handleSearchBillsByCategory} />
-      <SearchResultsList searchResults={searchResults} onSearchResultSelect={handleSearchResultSelect} />
-      <CreateBillsButton onCreateBills={handleCreateBills} />
-      {selectedClientId && selectedPendingBill && (
-        <PaymentForm
-          clientId={selectedClientId}
-          pendingBill={selectedPendingBill}
-          onBillPaid={handleBillPaid}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PaymentLayout
+              onClientSelect={handleClientSelect}
+              selectedPendingBill={selectedPendingBill}
+              onBillPaid={handleBillPaid}
+            />
+          }
         />
-      )}
+        <Route
+          path="/bills"
+          element={
+            <BillList
+              pendingBills={pendingBills}
+              onPendingBillSelect={handlePendingBillSelect}
+            />
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <SearchLayout
+              onSearchBills={handleSearchBillsByCategory}
+              onSearchResultSelect={handleSearchResultSelect}
+              searchResults={searchResults}
+            />
+          }
+        />
+        <Route
+          path="/create"
+          element={<CreateBillsButton onCreateBills={handleCreateBills} />}
+        />
+        {/* Add other routes here */}
+      </Routes>
     </div>
   );
 };

@@ -1,0 +1,25 @@
+/* src/components/SearchBillsByCategory.css */
+.search-bills-by-category {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.search-bills-by-category input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.search-bills-by-category button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bills-by-category button:hover {
+    background-color: #0056b3;
+}
