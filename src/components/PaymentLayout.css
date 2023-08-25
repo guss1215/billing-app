@@ -1,0 +1,42 @@
+/* PaymentLayout.css */
+
+.payment-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #f2f2f2;
+    color: #333;
+    padding: 20px;
+}
+
+.bill-list {
+    flex: 1;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.payment-form {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for each bill in the list */
+.bill-item {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.bill-item:hover {
+    background-color: #e0e0e0;
+}

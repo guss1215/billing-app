@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBillsByCategory from './SearchBillsByCategory';
 import SearchResultsList from './SearchResultsList';
 import { PendingBill } from '../types';
+import './SearchLayout.css';
 
 interface SearchLayoutProps {
     onSearchBills: (category: string) => Promise<void>;
@@ -15,7 +16,7 @@ const SearchLayout: React.FC<SearchLayoutProps> = ({
     searchResults,
 }) => {
     return (
-        <div className="layout">
+        <div className="search-layout">
             <SearchBillsByCategory onSearchBills={onSearchBills} />
             <SearchResultsList onSearchResultSelect={onSearchResultSelect} searchResults={searchResults} />
         </div>

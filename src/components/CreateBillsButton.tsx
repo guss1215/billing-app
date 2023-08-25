@@ -24,15 +24,20 @@ const CreateBillsButton: React.FC<CreateBillsButtonProps> = ({ onCreateBills }) 
                     type="text"
                     value={period}
                     onChange={(e) => setPeriod(e.target.value)}
+                    placeholder='YYYYMM'
                 />
             </div>
             <div>
                 <label>Category: </label>
-                <input
-                    type="text"
+                <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                />
+                >
+                    <option value="">Select a Category</option>
+                    <option value="SEWER">SEWER</option>
+                    <option value="ELECTRICITY">ELECTRICITY</option>
+                    <option value="WATER">WATER</option>
+                </select>
             </div>
             <button onClick={handleCreateBills}>Create Bills</button>
         </div>

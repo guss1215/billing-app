@@ -7,22 +7,28 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.bill-list ul {
-    list-style: none;
-    padding: 0;
-}
-
-.bill-list li {
-    padding: 10px;
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.bill-list li:hover {
-    background-color: #f8f8f8;
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
 }
 
-.selected {
+.data-cell {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.data-row:hover {
     background-color: #f8f8f8;
 }

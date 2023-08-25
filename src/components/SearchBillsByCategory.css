@@ -1,10 +1,10 @@
 /* src/components/SearchBillsByCategory.css */
 .search-bills-by-category {
     text-align: center;
-    margin: 20px 0;
+    margin: 20px;
 }
 
-.search-bills-by-category input[type="text"] {
+.search-bills-by-category select {
     padding: 10px;
     border: 1px solid #ddd;
     width: 100%;

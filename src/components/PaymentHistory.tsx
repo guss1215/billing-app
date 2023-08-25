@@ -43,20 +43,29 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = ({ onClientSelect }) => {
   return (
     <div className='payment-history'>
       <h2>Payment History</h2>
-      <input
-        type="input"
-        placeholder="Enter Client ID"
-        value={clientId || ''}
-        onChange={(e) => handleClientSelect(parseInt(e.target.value))}
-      />
-      <button onClick={handleFetchPaymentHistory}>Fetch Payment History</button>
-      <ul>
-        {paymentHistory.map((bill) => (
-          <li key={bill.id}>
-            Client ID: {bill.clientId}, Category: {bill.category}, Period: {bill.period}, Status: {bill.paymentStatus}
-          </li>
-        ))}
-      </ul>
+      <div className='input-button-container'>
+        <input
+          type="input"
+          placeholder="Enter Client ID"
+          value={clientId || ''}
+          onChange={(e) => handleClientSelect(parseInt(e.target.value))}
+        />
+        <button onClick={handleFetchPaymentHistory}>Search</button>
+      </div>
+      <div className='data-row header-row'>
+        <div className='data-cell'>Client ID</div>
+        <div className='data-cell'>Category</div>
+        <div className='data-cell'>Period</div>
+        <div className='data-cell'>Status</div>
+      </div>
+      {paymentHistory.map((bill) => (
+        <div className='data-row' key={bill.id}>
+          <div className='data-cell'>{bill.clientId}</div>
+          <div className='data-cell'>{bill.category}</div>
+          <div className='data-cell'>{bill.period}</div>
+          <div className='data-cell'>{bill.paymentStatus}</div>
+        </div>
+      ))}
     </div>
   );
 };

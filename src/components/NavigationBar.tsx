@@ -1,24 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import './NavigationBar.css';
 
 const NavigationBar: React.FC = () => {
+    const location = useLocation();
+
+    const isActiveLink = (match: any) => {
+        return match ? 'active-link' : '';
+    };
+
     return (
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/">Payment History</Link>
-                </li>
-                <li>
-                    <Link to="/bills">Bill List</Link>
-                </li>
-                <li>
-                    <Link to="/search">Search Bills</Link>
-                </li>
-                <li>
-                    <Link to="/create">Create Bills</Link>
-                </li>
-            </ul>
-        </nav>
+        <div className="navigation-bar">
+            <NavLink to="/" className={`nav-link ${isActiveLink(location.pathname === '/')}`}>
+                Payment History
+            </NavLink>
+            <NavLink to="/bills" className={`nav-link ${isActiveLink(location.pathname === '/bills')}`}>
+                Payment and Bills
+            </NavLink>
+            <NavLink to="/search" className={`nav-link ${isActiveLink(location.pathname === '/search')}`}>
+                Search Category
+            </NavLink>
+            <NavLink to="/create" className={`nav-link ${isActiveLink(location.pathname === '/create')}`}>
+                Create Bills
+            </NavLink>
+        </div>
     );
 };
 

@@ -16,14 +16,17 @@ const SearchBillsByCategory: React.FC<SearchBillsByCategoryProps> = ({ onSearchB
 
     return (
         <div className='search-bills-by-category'>
-            <h2>Search Bills by Category</h2>
+            <h2>Search Bills</h2>
             <div>
-                <label>Category: </label>
-                <input
-                    type="text"
+                <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                />
+                >
+                    <option value="">Select a Category</option>
+                    <option value="SEWER">SEWER</option>
+                    <option value="ELECTRICITY">ELECTRICITY</option>
+                    <option value="WATER">WATER</option>
+                </select>
             </div>
             <button onClick={handleSearchBills}>Search Bills</button>
         </div>

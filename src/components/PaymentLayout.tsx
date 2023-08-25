@@ -3,7 +3,7 @@ import BillList from './BillList'; // Import BillList component
 import PaymentForm from './PaymentForm';
 import { PendingBill } from '../types';
 import api from '../services/api';
-//import './PaymentLayout.css';
+import './PaymentLayout.css';
 
 interface PaymentLayoutProps {
     selectedClientId: number | null;

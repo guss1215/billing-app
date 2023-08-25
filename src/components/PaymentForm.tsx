@@ -48,7 +48,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ clientId, pendingBill, onBill
             <p>Service Type: {pendingBill.category}</p>
             <p>Month-Year: {pendingBill.period}</p>
             <button onClick={handlePayment} disabled={isPaymentInProgress}>
-                {isPaymentInProgress ? 'Making Payment...' : 'Make Payment'}
+                {isPaymentInProgress ? 'Paying...' : 'Pay'}
             </button>
         </div>
     );

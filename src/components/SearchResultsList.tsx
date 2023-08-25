@@ -14,15 +14,22 @@ const SearchResultsList: React.FC<SearchResultsListProps> = ({
     return (
         <div className='search-results'>
             <h2>Search Results</h2>
-            <ul>
-                {searchResults.map((bill) => (
-                    <li key={bill.id} onClick={() => onSearchResultSelect(bill)}>
-                        {/* Display bill information here */}
-                        Client ID: {bill.clientId}, Category: {bill.category}, Period: {bill.period}, Status: {bill.paymentStatus}
-                    </li>
-                ))}
-            </ul>
+            <div className='data-row header-row'>
+                <div className='data-cell'>Client ID</div>
+                <div className='data-cell'>Category</div>
+                <div className='data-cell'>Period</div>
+                <div className='data-cell'>Status</div>
+            </div>
+            {searchResults.map((bill) => (
+                <div className='data-row' key={bill.id} onClick={() => onSearchResultSelect(bill)}>
+                    <div className='data-cell'>{bill.clientId}</div>
+                    <div className='data-cell'>{bill.category}</div>
+                    <div className='data-cell'>{bill.period}</div>
+                    <div className='data-cell'>{bill.paymentStatus}</div>
+                </div>
+            ))}
         </div>
+
     );
 };
 

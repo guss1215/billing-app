@@ -65,36 +65,38 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <NavigationBar />
-      <h1>Billing App</h1>
-      <Routes>
-        <Route path="/" element={<PaymentHistory onClientSelect={handleClientSelect} />} />
-        <Route
-          path="/bills"
-          element={
-            <PaymentLayout
-              selectedClientId={selectedClientId} // Pass the selectedClientId prop
-              onClientSelect={handleClientSelect}
-              selectedPendingBill={selectedPendingBill}
-              onBillPaid={handleBillPaid}
-            />
-          }
-        />
-        <Route
-          path="/search"
-          element={
-            <SearchLayout
-              onSearchBills={handleSearchBillsByCategory}
-              onSearchResultSelect={handleSearchResultSelect}
-              searchResults={searchResults}
-            />
-          }
-        />
-        <Route
-          path="/create"
-          element={<CreateBillsButton onCreateBills={handleCreateBills} />}
-        />
-        {/* Add other routes here */}
-      </Routes>
+      <h1 className="title">Billing App</h1>
+      <div className="app-content">
+        <Routes>
+          <Route path="/" element={<PaymentHistory onClientSelect={handleClientSelect} />} />
+          <Route
+            path="/bills"
+            element={
+              <PaymentLayout
+                selectedClientId={selectedClientId} // Pass the selectedClientId prop
+                onClientSelect={handleClientSelect}
+                selectedPendingBill={selectedPendingBill}
+                onBillPaid={handleBillPaid}
+              />
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <SearchLayout
+                onSearchBills={handleSearchBillsByCategory}
+                onSearchResultSelect={handleSearchResultSelect}
+                searchResults={searchResults}
+              />
+            }
+          />
+          <Route
+            path="/create"
+            element={<CreateBillsButton onCreateBills={handleCreateBills} />}
+          />
+          {/* Add other routes here */}
+        </Routes>
+      </div>
     </div>
   );
 };

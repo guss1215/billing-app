@@ -14,15 +14,22 @@ const BillList: React.FC<BillListProps> = ({ pendingBills, onPendingBillSelect }
     return (
         <div className='bill-list'>
             <h2>Bill List</h2>
-            <ul>
-                {pendingBills.map((bill) => (
-                    <li key={bill.id} onClick={() => onPendingBillSelect(bill)}>
-                        {/* Display bill information here */}
-                        Client ID: {bill.clientId}, Category: {bill.category}, Period: {bill.period}, Status: {bill.paymentStatus}
-                    </li>
-                ))}
-            </ul>
+            <div className='data-row header-row'>
+                <div className='data-cell'>Client ID</div>
+                <div className='data-cell'>Category</div>
+                <div className='data-cell'>Period</div>
+                <div className='data-cell'>Status</div>
+            </div>
+            {pendingBills.map((bill) => (
+                <div className='data-row' key={bill.id} onClick={() => onPendingBillSelect(bill)}>
+                    <div className='data-cell'>{bill.clientId}</div>
+                    <div className='data-cell'>{bill.category}</div>
+                    <div className='data-cell'>{bill.period}</div>
+                    <div className='data-cell'>{bill.paymentStatus}</div>
+                </div>
+            ))}
         </div>
+
     );
 };
 
