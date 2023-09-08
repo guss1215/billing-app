@@ -15,6 +15,15 @@ const CreateBillsButton: React.FC<CreateBillsButtonProps> = ({ onCreateBills }) 
         setCategory('');
     };
 
+    const handlePeriodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+    
+        // Allow only numbers and maximum of 6 characters
+        if (/^\d{0,6}$/.test(value)) {
+          setPeriod(value);
+        }
+      };
+
     return (
         <div className='create-bills-button'>
             <h2>Create Bills</h2>
@@ -23,7 +32,7 @@ const CreateBillsButton: React.FC<CreateBillsButtonProps> = ({ onCreateBills }) 
                 <input
                     type="text"
                     value={period}
-                    onChange={(e) => setPeriod(e.target.value)}
+                    onChange={handlePeriodChange}
                     placeholder='YYYYMM'
                 />
             </div>

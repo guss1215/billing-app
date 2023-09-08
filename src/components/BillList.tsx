@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PendingBill } from '../types';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
 import './BillList.css';
 
 interface BillListProps {
@@ -9,19 +7,55 @@ interface BillListProps {
     onPendingBillSelect: (pendingBill: PendingBill) => void;
 }
 
+enum SortColumn {
+    ClientId = 'clientId',
+    Category = 'category',
+    Period = 'period',
+    PaymentStatus = 'paymentStatus',
+}
+
 const BillList: React.FC<BillListProps> = ({ pendingBills, onPendingBillSelect }) => {
-    const paymentHistory = useSelector((state: RootState) => state.paymentHistory.paymentHistory);
+    const [sortColumn, setSortColumn] = useState<SortColumn | null>(null);
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const [selectedBillId, setSelectedBillId] = useState<number | null>(null);
+
+    const handleSort = (column: SortColumn) => {
+        if (sortColumn === column) {
+            setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortColumn(column);
+            setSortDirection('asc');
+        }
+    };
+
+    const sortedBills = [...pendingBills].sort((a, b) => {
+        const aValue = sortColumn ? a[sortColumn] : '';
+        const bValue = sortColumn ? b[sortColumn] : '';
+
+        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+    });
+
     return (
         <div className='bill-list'>
             <h2>Bill List</h2>
             <div className='data-row header-row'>
-                <div className='data-cell'>Client ID</div>
-                <div className='data-cell'>Category</div>
-                <div className='data-cell'>Period</div>
-                <div className='data-cell'>Status</div>
+                <div className={`data-cell ${sortColumn === SortColumn.ClientId ? sortDirection === 'asc' ? 'sort-asc' : 'sort-desc' : ''}`} onClick={() => handleSort(SortColumn.ClientId)}>
+                    Client ID
+                </div>
+                <div className={`data-cell ${sortColumn === SortColumn.Category ? sortDirection === 'asc' ? 'sort-asc' : 'sort-desc' : ''}`} onClick={() => handleSort(SortColumn.Category)}>
+                    Category
+                </div>
+                <div className={`data-cell ${sortColumn === SortColumn.Period ? sortDirection === 'asc' ? 'sort-asc' : 'sort-desc' : ''}`} onClick={() => handleSort(SortColumn.Period)}>
+                    Period
+                </div>
+                <div className={`data-cell ${sortColumn === SortColumn.PaymentStatus ? sortDirection === 'asc' ? 'sort-asc' : 'sort-desc' : ''}`} onClick={() => handleSort(SortColumn.PaymentStatus)}>
+                    Status
+                </div>
             </div>
-            {pendingBills.map((bill) => (
-                <div className='data-row' key={bill.id} onClick={() => onPendingBillSelect(bill)}>
+            {sortedBills.map((bill) => (
+                <div className={`data-row ${selectedBillId === bill.id ? 'selected-row' : ''}`} key={bill.id} onClick={() => { onPendingBillSelect(bill); setSelectedBillId(bill.id); }}>
                     <div className='data-cell'>{bill.clientId}</div>
                     <div className='data-cell'>{bill.category}</div>
                     <div className='data-cell'>{bill.period}</div>
@@ -29,7 +63,6 @@ const BillList: React.FC<BillListProps> = ({ pendingBills, onPendingBillSelect }
                 </div>
             ))}
         </div>
-
     );
 };
 

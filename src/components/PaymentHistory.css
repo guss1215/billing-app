@@ -23,6 +23,7 @@
     border: 1px solid #ddd;
     width: 30%;
     margin-bottom: 10px;
+    font-size: 1.2rem;
 }
 
 .payment-history button {
@@ -33,6 +34,7 @@
     cursor: pointer;
     border-radius: 4px;
     margin-bottom: 10px;
+    font-size: 1.2rem;
 }
 
 .payment-history button:hover {
@@ -58,4 +60,18 @@
 .data-cell {
     flex: 1;
     padding: 10px;
+}
+
+.sorted {
+    /* Add your desired styling here, for example: */
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.data-cell.sorted::after {
+    content: '\2195';
+    /* Unicode arrow icon */
+    margin-left: 6px;
+    font-size: 16px;
+    color: blue;
 }

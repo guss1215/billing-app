@@ -9,6 +9,7 @@
     border: 1px solid #ddd;
     width: 100%;
     margin-bottom: 10px;
+    font-size: 1.2rem;
 }
 
 .search-bills-by-category button {
@@ -18,6 +19,7 @@
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 1.2rem;
 }
 
 .search-bills-by-category button:hover {

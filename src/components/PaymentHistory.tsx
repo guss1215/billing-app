@@ -1,10 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { setClientId, setPaymentHistory } from '../redux/paymentHistorySlice';
 import { PaymentHistoryEntry } from '../types';
 import api from '../services/api';
 import './PaymentHistory.css';
+
+enum SortColumn {
+  ClientId = 'clientId',
+  Category = 'category',
+  Period = 'period',
+  PaymentStatus = 'paymentStatus',
+}
 
 interface PaymentHistoryProps {
   onClientSelect: (clientId: number) => void; // Define the onClientSelect prop
@@ -19,6 +26,9 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = ({ onClientSelect }) => {
     (state: RootState) => state.paymentHistory.clientId
   );
 
+  const [sortColumn, setSortColumn] = useState<SortColumn | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
   const handleFetchPaymentHistory = async () => {
     if (clientId !== null) {
       try {
@@ -30,35 +40,68 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = ({ onClientSelect }) => {
     }
   };
 
-  /*useEffect(() => {
-    handleFetchPaymentHistory();
-  }, [paymentHistory]);*/
-
-  // Call the onClientSelect callback when a client is selected
   const handleClientSelect = (selectedClientId: number) => {
     onClientSelect(selectedClientId);
     dispatch(setClientId(selectedClientId));
   };
+
+  const handleSort = (column: SortColumn) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortDirection('asc');
+    }
+  };
+
+  const sortedHistory = [...paymentHistory].sort((a, b) => {
+    const aValue = sortColumn ? a[sortColumn] : '';
+    const bValue = sortColumn ? b[sortColumn] : '';
+
+    if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+    if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+    return 0;
+  });
 
   return (
     <div className='payment-history'>
       <h2>Payment History</h2>
       <div className='input-button-container'>
         <input
-          type="input"
-          placeholder="Enter Client ID"
+          type='input'
+          placeholder='Enter Client ID'
           value={clientId || ''}
           onChange={(e) => handleClientSelect(parseInt(e.target.value))}
         />
         <button onClick={handleFetchPaymentHistory}>Search</button>
       </div>
       <div className='data-row header-row'>
-        <div className='data-cell'>Client ID</div>
-        <div className='data-cell'>Category</div>
-        <div className='data-cell'>Period</div>
-        <div className='data-cell'>Status</div>
+        <div
+          className={`data-cell ${sortColumn === SortColumn.ClientId ? 'sorted' : ''}`}
+          onClick={() => handleSort(SortColumn.ClientId)}
+        >
+          Client ID
+        </div>
+        <div
+          className={`data-cell ${sortColumn === SortColumn.Category ? 'sorted' : ''}`}
+          onClick={() => handleSort(SortColumn.Category)}
+        >
+          Category
+        </div>
+        <div
+          className={`data-cell ${sortColumn === SortColumn.Period ? 'sorted' : ''}`}
+          onClick={() => handleSort(SortColumn.Period)}
+        >
+          Period
+        </div>
+        <div
+          className={`data-cell ${sortColumn === SortColumn.PaymentStatus ? 'sorted' : ''}`}
+          onClick={() => handleSort(SortColumn.PaymentStatus)}
+        >
+          Status
+        </div>
       </div>
-      {paymentHistory.map((bill) => (
+      {sortedHistory.map((bill) => (
         <div className='data-row' key={bill.id}>
           <div className='data-cell'>{bill.clientId}</div>
           <div className='data-cell'>{bill.category}</div>
