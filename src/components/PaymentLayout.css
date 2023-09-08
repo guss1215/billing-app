@@ -19,12 +19,16 @@
 }
 
 .payment-form {
-    flex: 1;
     background-color: #ffffff;
-    padding: 20px;
+    padding: 10px;
+    /* Reduced padding to make it smaller */
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 400px;
+    /* Set a maximum width to control the size */
+    margin: 0 auto;
+    /* Center the modal horizontally */
 }
 
 /* Style for each bill in the list */
@@ -39,4 +43,30 @@
 
 .bill-item:hover {
     background-color: #e0e0e0;
+}
+
+.ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* Adjust the alpha value (0.3) to control transparency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    /* Ensure it's above other content */
+}
+
+.ReactModal__Content {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* Adjust the alpha value (0.8) to control transparency */
+    border: none;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 8px;
+    max-width: 500px;
+    max-height: 250px;
+    margin: 0 auto;
+    outline: none;
+
 }

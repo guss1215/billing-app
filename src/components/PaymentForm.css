@@ -27,3 +27,48 @@
 .payment-form button:hover {
     background-color: #218838;
 }
+
+.confirmation-modal {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    /* Ensure the modal appears above other content */
+}
+
+.confirmation-modal p {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.confirmation-modal button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.confirmation-modal button.cancel {
+    background-color: #dc3545;
+    /* Red color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Add this style for the Cancel button on hover */
+.confirmation-modal button.cancel:hover {
+    background-color: #c82333;
+    /* Darker red color on hover */
+}

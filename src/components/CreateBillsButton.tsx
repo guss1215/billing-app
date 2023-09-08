@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify'; // Import toast from react-toastify
 import './CreateBillsButton.css';
 
 interface CreateBillsButtonProps {
-    onCreateBills: (period: string, category: string) => void; // Update function signature
+    onCreateBills: (period: string, category: string) => void;
 }
 
 const CreateBillsButton: React.FC<CreateBillsButtonProps> = ({ onCreateBills }) => {
@@ -10,19 +11,24 @@ const CreateBillsButton: React.FC<CreateBillsButtonProps> = ({ onCreateBills }) 
     const [category, setCategory] = useState('');
 
     const handleCreateBills = () => {
-        onCreateBills(period, category); // Call the provided function with arguments
-        setPeriod(''); // Clear input fields
+        onCreateBills(period, category);
+        setPeriod('');
         setCategory('');
+
+        // Trigger a toast notification for bill creation
+        toast.success('Bills created successfully!', {
+            autoClose: 3000,
+            position: 'top-right',
+        });
     };
 
     const handlePeriodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-    
-        // Allow only numbers and maximum of 6 characters
+
         if (/^\d{0,6}$/.test(value)) {
-          setPeriod(value);
+            setPeriod(value);
         }
-      };
+    };
 
     return (
         <div className='create-bills-button'>

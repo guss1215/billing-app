@@ -3,6 +3,7 @@ import BillList from './BillList'; // Import BillList component
 import PaymentForm from './PaymentForm';
 import { PendingBill } from '../types';
 import api from '../services/api';
+import Modal from 'react-modal'; // Import react-modal
 import './PaymentLayout.css';
 
 interface PaymentLayoutProps {
@@ -20,6 +21,7 @@ const PaymentLayout: React.FC<PaymentLayoutProps> = ({
 }) => {
     const [pendingBills, setPendingBills] = useState<PendingBill[]>([]);
     const [selectedBill, setSelectedBill] = useState<PendingBill | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
     const handleBillPaid = (paidBill: PendingBill) => {
         setPendingBills((prevBills) => prevBills.filter((bill) => bill.id !== paidBill.id));
@@ -48,6 +50,15 @@ const PaymentLayout: React.FC<PaymentLayoutProps> = ({
 
     const handlePendingBillSelect = (bill: PendingBill) => {
         setSelectedBill(bill); // Set the selected bill
+        openModal(); // Open the modal
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -56,13 +67,22 @@ const PaymentLayout: React.FC<PaymentLayoutProps> = ({
                 pendingBills={pendingBills}
                 onPendingBillSelect={handlePendingBillSelect}
             />
-            {selectedBill !== null && (
-                <PaymentForm
-                    clientId={selectedClientId}
-                    pendingBill={selectedBill}
-                    onBillPaid={handleBillPaid}
-                />
-            )}
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                contentLabel="Payment Form Modal"
+            >
+                {selectedBill && (
+                    <PaymentForm
+                        clientId={selectedClientId}
+                        pendingBill={selectedBill}
+                        onBillPaid={(paidBill) => {
+                            handleBillPaid(paidBill);
+                            closeModal(); // Close the modal after payment
+                        }}
+                    />
+                )}
+            </Modal>
         </div>
     );
 };
